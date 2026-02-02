@@ -29,6 +29,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         localStorage.setItem('theme', currentTheme);
     });
+
+    // Login Modal Logic
+    const loginModal = document.getElementById('login-modal');
+    const loginBtn = document.getElementById('login-btn');
+    const closeBtn = document.querySelector('.close-btn');
+
+    loginBtn.addEventListener('click', () => {
+        loginModal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+    });
+
+    const loginForm = loginModal.querySelector('form');
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // In a real app, you'd handle authentication here.
+        loginModal.style.display = 'none';
+    });
 });
 
 function startTest() {
