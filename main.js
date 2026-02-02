@@ -55,6 +55,39 @@ document.addEventListener('DOMContentLoaded', () => {
         // In a real app, you'd handle authentication here.
         loginModal.style.display = 'none';
     });
+
+    // Sidebar Navigation Logic
+    const homeLink = document.getElementById('home-link');
+    const aboutLink = document.getElementById('about-link');
+    const servicesLink = document.getElementById('services-link');
+
+    const mainPage = document.getElementById('main-page');
+    const aboutPage = document.getElementById('about-page');
+    const servicesPage = document.getElementById('services-page');
+
+    const pages = [mainPage, aboutPage, servicesPage];
+
+    const showPage = (pageToShow) => {
+        pages.forEach(page => {
+            page.style.display = 'none';
+        });
+        pageToShow.style.display = 'block';
+    };
+
+    homeLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPage(mainPage);
+    });
+
+    aboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPage(aboutPage);
+    });
+
+    servicesLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPage(servicesPage);
+    });
 });
 
 function startTest() {

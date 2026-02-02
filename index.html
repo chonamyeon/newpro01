@@ -40,7 +40,9 @@
         }
 
         /* 메인 화면 */
-        <div class="header"> <h1 class="title">2050 노후 생존 레벨 테스트</h1> <p class="subtitle">나는 과연 몇 레벨일까?</p> <button id="theme-toggle" class="btn">White Mode</button> </div>
+        .header { margin-bottom: 40px; }
+        .title { font-size: 2rem; color: var(--point-color); margin-bottom: 10px; }
+        .subtitle { font-size: 1.1rem; opacity: 0.8; }
 
         /* 카드 스타일 */
         .card {
@@ -133,47 +135,117 @@
             background-color: #333;
             color: white;
         }
+
+        #app-container {
+            display: flex;
+            width: 100%;
+        }
+
+        #sidebar {
+            width: 200px;
+            background-color: var(--sidebar-bg);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        #sidebar h2 {
+            color: var(--point-color);
+            text-align: center;
+        }
+
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #sidebar ul li a {
+            display: block;
+            color: var(--text-color);
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        #sidebar ul li a:hover {
+            background-color: var(--point-color);
+            color: black;
+        }
+
+        #main-content {
+            margin-left: 240px; /* sidebar width + padding */
+            padding: 20px;
+            width: calc(100% - 240px);
+        }
     </style>
 </head>
 <body>
-    <div id="app">
-        <div class="header">
-            <h1 class="title">2050 노후 생존 레벨 테스트</h1>
-            <p class="subtitle">나는 과연 몇 레벨일까?</p>
-            <button id="theme-toggle" class="btn">White Mode</button>
-            <button id="login-btn" class="btn">Login</button>
-        </div>
+    <div id="app-container">
+        <nav id="sidebar">
+            <h2>메뉴</h2>
+            <ul>
+                <li><a href="#" id="home-link">홈</a></li>
+                <li><a href="#" id="about-link">회사 소개</a></li>
+                <li><a href="#" id="services-link">서비스 소개</a></li>
+            </ul>
+        </nav>
 
-        <div id="login-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h2>Login</h2>
-                <form>
-                    <input type="text" placeholder="Username" required>
-                    <input type="password" placeholder="Password" required>
-                    <button type="submit" class="btn">Login</button>
-                </form>
+        <div id="main-content">
+            <div id="app">
+                <div class="header">
+                    <h1 class="title">2050 노후 생존 레벨 테스트</h1>
+                    <p class="subtitle">나는 과연 몇 레벨일까?</p>
+                    <button id="theme-toggle" class="btn">White Mode</button>
+                    <button id="login-btn" class="btn">Login</button>
+                </div>
+
+                <div id="login-modal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h2>Login</h2>
+                        <form>
+                            <input type="text" placeholder="Username" required>
+                            <input type="password" placeholder="Password" required>
+                            <button type="submit" class="btn">Login</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="main-page">
+                    <div id="main" class="card">
+                        <p class="question">당신의 2050년 생존 레벨을 테스트합니다.</p>
+                        <button class="btn btn-ans" onclick="startTest()">시작하기</button>
+                    </div>
+
+                    <div id="qna" style="display: none;">
+                        <p class="question">Q1. 질문 내용</p>
+                        <button class="btn btn-ans">답변 1</button>
+                        <button class="btn btn-ans">답변 2</button>
+                    </div>
+
+                    <div id="loading" style="display: none;" class="card">
+                        <p>2050년 당신의 생존 레벨을 분석중입니다...</p>
+                        <div class="loader"></div>
+                    </div>
+
+                    <div id="result" style="display: none;" class="card">
+                        <p>결과 내용</p>
+                    </div>
+                </div>
+
+                <div id="about-page" class="card" style="display: none;">
+                    <h2>회사 소개</h2>
+                    <p>저희 회사는...</p>
+                </div>
+
+                <div id="services-page" class="card" style="display: none;">
+                    <h2>서비스 소개</h2>
+                    <p>저희는 이런 서비스들을 제공합니다...</p>
+                </div>
             </div>
-        </div>
-
-        <div id="main" class="card">
-            <p class="question">당신의 2050년 생존 레벨을 테스트합니다.</p>
-            <button class="btn btn-ans" onclick="startTest()">시작하기</button>
-        </div>
-
-        <div id="qna" style="display: none;">
-            <p class="question">Q1. 질문 내용</p>
-            <button class="btn btn-ans">답변 1</button>
-            <button class="btn btn-ans">답변 2</button>
-        </div>
-
-        <div id="loading" style="display: none;" class="card">
-            <p>2050년 당신의 생존 레벨을 분석중입니다...</p>
-            <div class="loader"></div>
-        </div>
-
-        <div id="result" style="display: none;" class="card">
-            <p>결과 내용</p>
         </div>
     </div>
     <script src="main.js"></script>
