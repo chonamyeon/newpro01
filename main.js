@@ -30,3 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', currentTheme);
     });
 });
+
+function startTest() {
+    document.getElementById('main').style.display = 'none';
+    document.getElementById('qna').style.display = 'block';
+}
