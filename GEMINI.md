@@ -155,14 +155,15 @@ The AI's workflow is iterative, transparent, and responsive to user input.
 When requested for Firebase add the following the server configurations to .idx/mcp.json. Just add the following and don't add anything else.
 
 {
-    "mcpServers": {
-        "firebase": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "firebase-tools@latest",
-                "experimental:mcp"
-            ]
-        }
+  "mcpServers": {
+    "firebase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firebase-tools@latest",
+        "experimental:mcp"
+      ]
     }
+  }
 }
+
