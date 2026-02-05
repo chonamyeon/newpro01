@@ -1,1 +1,86 @@
 /* Add styles here */
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --point-color: #00FF41; /* 네온 그린 */
+    --warn-color: #FF4500;
+    --text-color: #ffffff;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 메인 화면 */
+.header { margin-bottom: 40px; }
+.title { font-size: 2rem; color: var(--point-color); margin-bottom: 10px; }
+.subtitle { font-size: 1.1rem; opacity: 0.8; }
+
+/* 카드 스타일 */
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+}
+
+.question { font-size: 1.3rem; margin-bottom: 30px; line-height: 1.5; }
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-ans { background: #333; color: white; }
+.btn-ans:hover { background: var(--point-color); color: black; }
+
+/* 로딩 화면 */
+#loading { display: none; }
+.loader {
+    border: 5px solid #333;
+    border-top: 5px solid var(--point-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* 결과 화면 */
+#result { display: none; }
+.result-score { font-size: 1.5rem; color: var(--warn-color); margin: 20px 0; }
+.ad-space {
+    background: #2a2a2a;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px dashed var(--point-color);
+    color: #888;
+}
+
+.hidden { display: none; }

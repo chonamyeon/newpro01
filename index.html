@@ -5,93 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2050 노후 생존 레벨 테스트</title>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --point-color: #00FF41; /* 네온 그린 */
-            --warn-color: #FF4500;
-            --text-color: #ffffff;
-        }
-
-        body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        #app {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* 메인 화면 */
-        .header { margin-bottom: 40px; }
-        .title { font-size: 2rem; color: var(--point-color); margin-bottom: 10px; }
-        .subtitle { font-size: 1.1rem; opacity: 0.8; }
-
-        /* 카드 스타일 */
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-        }
-
-        .question { font-size: 1.3rem; margin-bottom: 30px; line-height: 1.5; }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .btn-ans { background: #333; color: white; }
-        .btn-ans:hover { background: var(--point-color); color: black; }
-
-        /* 로딩 화면 */
-        #loading { display: none; }
-        .loader {
-            border: 5px solid #333;
-            border-top: 5px solid var(--point-color);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* 결과 화면 */
-        #result { display: none; }
-        .result-score { font-size: 1.5rem; color: var(--warn-color); margin: 20px 0; }
-        .ad-space {
-            background: #2a2a2a;
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px dashed var(--point-color);
-            color: #888;
-        }
-
-        .hidden { display: none; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -103,7 +17,7 @@
         </div>
         <div class="card">
             <p>인플레이션과 고령사회,<br>당신의 생존 등급을 확인해보세요.</p>
-            <button class="btn" style="background: var(--point-color);" onclick="startQuiz()">테스트 시작하기</button>
+            <button id="start-btn" class="btn" style="background: var(--point-color);">테스트 시작하기</button>
         </div>
     </div>
 
@@ -111,8 +25,8 @@
         <div class="card">
             <div id="progress" style="margin-bottom: 10px; color: var(--point-color);">질문 1 / 5</div>
             <p id="q-text" class="question">질문 내용이 여기에 표시됩니다.</p>
-            <button class="btn btn-ans" onclick="nextQuestion(1)">그렇다</button>
-            <button class="btn btn-ans" onclick="nextQuestion(0)">아니다</button>
+            <button id="yes-btn" class="btn btn-ans">그렇다</button>
+            <button id="no-btn" class="btn btn-ans">아니다</button>
         </div>
     </div>
 
@@ -135,76 +49,12 @@
                 여기에 구글 에드센스 코드를 넣으세요.
             </div>
 
-            <button class="btn" style="background: #555; color: white;" onclick="location.reload()">다시 하기</button>
+            <button id="retry-btn" class="btn" style="background: #555; color: white;">다시 하기</button>
         </div>
     </div>
 </div>
 
-<script>
-    const questions = [
-        "오늘 편의점 물가를 보고 한숨을 쉬었나요?",
-        "월급의 10% 이상을 미래를 위해 따로 떼어두나요?",
-        "키오스크나 뱅킹 앱 사용이 가끔 두렵나요?",
-        "노후에 몸을 쓸 수 있을 만큼 운동을 하나요?",
-        "물가가 오르면 주식을 살 생각을 하시나요?"
-    ];
-
-    let currentIdx = 0;
-    let score = 0;
-
-    function startQuiz() {
-        document.getElementById('main').classList.add('hidden');
-        document.getElementById('quiz').classList.remove('hidden');
-        showQuestion();
-    }
-
-    function showQuestion() {
-        document.getElementById('q-text').innerText = questions[currentIdx];
-        document.getElementById('progress').innerText = `질문 ${currentIdx + 1} / ${questions.length}`;
-    }
-
-    function nextQuestion(point) {
-        score += point;
-        currentIdx++;
-
-        if (currentIdx < questions.length) {
-            showQuestion();
-        } else {
-            showLoading();
-        }
-    }
-
-    function showLoading() {
-        document.getElementById('quiz').classList.add('hidden');
-        document.getElementById('loading').classList.remove('hidden');
-        
-        setTimeout(() => {
-            showResult();
-        }, 3000); // 3초 로딩 (광고 노출 시간)
-    }
-
-    function showResult() {
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('result').classList.remove('hidden');
-
-        let grade = "";
-        let desc = "";
-
-        if (score >= 4) {
-            grade = "Lv.1 다이아몬드 실버";
-            desc = "폐지 대신 골프공을 줍고 계시군요! 아주 훌륭한 자산 감각을 가지셨습니다.";
-        } else if (score >= 2) {
-            grade = "Lv.2 아슬아슬 개미";
-            desc = "열심히는 하지만 물가 상승 속도가 더 빠를 수 있습니다. 조금 더 공격적인 투자가 필요해요!";
-        } else {
-            grade = "Lv.4 생존 위기 레벨";
-            desc = "위험합니다! 지금 당장 저축과 투자 습관을 고치지 않으면 진짜 리어카를 끌어야 할지도 몰라요.";
-        }
-
-        document.getElementById('res-grade').innerText = grade;
-        document.getElementById('res-desc').innerText = desc;
-    }
-</script>
+<script src="main.js"></script>
 
 </body>
 </html>

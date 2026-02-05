@@ -1,96 +1,75 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
+    const questions = [
+        "오늘 편의점 물가를 보고 한숨을 쉬었나요?",
+        "월급의 10% 이상을 미래를 위해 따로 떼어두나요?",
+        "키오스크나 뱅킹 앱 사용이 가끔 두렵나요?",
+        "노후에 몸을 쓸 수 있을 만큼 운동을 하나요?",
+        "물가가 오르면 주식을 살 생각을 하시나요?"
+    ];
 
-    const applyTheme = (theme) => {
-        if (theme === 'light') {
-            body.classList.add('light-mode');
-            themeToggle.textContent = 'Dark Mode';
-        } else {
-            body.classList.remove('light-mode');
-            themeToggle.textContent = 'White Mode';
-        }
-    };
+    let currentIdx = 0;
+    let score = 0;
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        applyTheme(savedTheme);
+    const startBtn = document.getElementById('start-btn');
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const retryBtn = document.getElementById('retry-btn');
+
+    startBtn.addEventListener('click', startQuiz);
+    yesBtn.addEventListener('click', () => nextQuestion(1));
+    noBtn.addEventListener('click', () => nextQuestion(0));
+    retryBtn.addEventListener('click', () => location.reload());
+
+    function startQuiz() {
+        document.getElementById('main').classList.add('hidden');
+        document.getElementById('quiz').classList.remove('hidden');
+        showQuestion();
     }
 
-    themeToggle.addEventListener('click', () => {
-        let currentTheme = 'dark';
-        if (body.classList.contains('light-mode')) {
-            body.classList.remove('light-mode');
-            themeToggle.textContent = 'White Mode';
+    function showQuestion() {
+        document.getElementById('q-text').innerText = questions[currentIdx];
+        document.getElementById('progress').innerText = `질문 ${currentIdx + 1} / ${questions.length}`;
+    }
+
+    function nextQuestion(point) {
+        score += point;
+        currentIdx++;
+
+        if (currentIdx < questions.length) {
+            showQuestion();
         } else {
-            body.classList.add('light-mode');
-            themeToggle.textContent = 'Dark Mode';
-            currentTheme = 'light';
+            showLoading();
         }
-        localStorage.setItem('theme', currentTheme);
-    });
+    }
 
-    // Login Modal Logic
-    const loginModal = document.getElementById('login-modal');
-    const loginBtn = document.getElementById('login-btn');
-    const closeBtn = document.querySelector('.close-btn');
+    function showLoading() {
+        document.getElementById('quiz').classList.add('hidden');
+        document.getElementById('loading').classList.remove('hidden');
+        
+        setTimeout(() => {
+            showResult();
+        }, 3000); // 3초 로딩 (광고 노출 시간)
+    }
 
-    loginBtn.addEventListener('click', () => {
-        loginModal.style.display = 'block';
-    });
+    function showResult() {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('result').classList.remove('hidden');
 
-    closeBtn.addEventListener('click', () => {
-        loginModal.style.display = 'none';
-    });
+        let grade = "";
+        let desc = "";
 
-    window.addEventListener('click', (event) => {
-        if (event.target === loginModal) {
-            loginModal.style.display = 'none';
+        if (score >= 4) {
+            grade = "Lv.1 다이아몬드 실버";
+            desc = "폐지 대신 골프공을 줍고 계시군요! 아주 훌륭한 자산 감각을 가지셨습니다.";
+        } else if (score >= 2) {
+            grade = "Lv.2 아슬아슬 개미";
+            desc = "열심히는 하지만 물가 상승 속도가 더 빠를 수 있습니다. 조금 더 공격적인 투자가 필요해요!";
+        } else {
+            grade = "Lv.3 생존 위기 레벨";
+            desc = "위험합니다! 지금 당장 저축과 투자 습관을 고치지 않으면 진짜 리어카를 끌어야 할지도 몰라요.";
         }
-    });
 
-    const loginForm = loginModal.querySelector('form');
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        // In a real app, you'd handle authentication here.
-        loginModal.style.display = 'none';
-    });
-
-    // Sidebar Navigation Logic
-    const homeLink = document.getElementById('home-link');
-    const aboutLink = document.getElementById('about-link');
-    const servicesLink = document.getElementById('services-link');
-
-    const mainPage = document.getElementById('main-page');
-    const aboutPage = document.getElementById('about-page');
-    const servicesPage = document.getElementById('services-page');
-
-    const pages = [mainPage, aboutPage, servicesPage];
-
-    const showPage = (pageToShow) => {
-        pages.forEach(page => {
-            page.style.display = 'none';
-        });
-        pageToShow.style.display = 'block';
-    };
-
-    homeLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showPage(mainPage);
-    });
-
-    aboutLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showPage(aboutPage);
-    });
-
-    servicesLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showPage(servicesPage);
-    });
+        document.getElementById('res-grade').innerText = grade;
+        document.getElementById('res-desc').innerText = desc;
+    }
 });
-
-function startTest() {
-    document.getElementById('main').style.display = 'none';
-    document.getElementById('qna').style.display = 'block';
-}
