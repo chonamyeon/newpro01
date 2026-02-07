@@ -3,55 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2050 노후 생존 레벨 테스트</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet">
+    <title>QUIZFLIX - 당신의 생존 레벨은?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="app">
-    <div id="main">
-        <div class="header">
-            <h1 class="title">폐지 줍기 테스트</h1>
-            <p class="subtitle">2050년, 당신의 손엔 무엇이 들려 있을까?</p>
-        </div>
-        <div class="card">
-            <p>인플레이션과 고령사회,<br>당신의 생존 등급을 확인해보세요.</p>
-            <button id="start-btn" class="btn" style="background: var(--point-color);">테스트 시작하기</button>
-        </div>
-    </div>
+<div class="app-container">
+    <header class="main-header">
+        <h1 class="logo">QUIZFLIX</h1>
+    </header>
 
-    <div id="quiz" class="hidden">
-        <div class="card">
-            <div id="progress" style="margin-bottom: 10px; color: var(--point-color);">질문 1 / 5</div>
-            <p id="q-text" class="question">질문 내용이 여기에 표시됩니다.</p>
-            <button id="yes-btn" class="btn btn-ans">그렇다</button>
-            <button id="no-btn" class="btn btn-ans">아니다</button>
-        </div>
-    </div>
-
-    <div id="loading" class="hidden">
-        <div class="card">
-            <div class="loader"></div>
-            <p>미래 자산 가치 시뮬레이션 중...</p>
-            <div class="ad-space">광고가 여기에 들어갑니다 (에드센스 코드)</div>
-        </div>
-    </div>
-
-    <div id="result" class="hidden">
-        <div class="card">
-            <h2>테스트 결과</h2>
-            <div id="res-grade" class="result-score">Lv.???</div>
-            <p id="res-desc">결과 설명이 표시됩니다.</p>
-            
-            <div class="ad-space">
-                <strong>[광고] 당신의 등급에 맞는 추천 재테크</strong><br>
-                여기에 구글 에드센스 코드를 넣으세요.
+    <main id="app">
+        <section id="main" class="view active">
+            <div class="hero-content">
+                <h2 class="main-title">2050<br>미래 생존 테스트</h2>
+                <p class="subtitle">인플레이션과 고령사회, 당신의 생존 등급을 확인해보세요.</p>
+                <button id="start-btn" class="btn btn-primary">테스트 시작하기</button>
             </div>
+        </section>
 
-            <button id="retry-btn" class="btn" style="background: #555; color: white;">다시 하기</button>
-        </div>
-    </div>
+        <section id="quiz" class="view">
+            <div class="card">
+                <div id="progress">질문 1 / 5</div>
+                <p id="q-text" class="question">질문 내용이 여기에 표시됩니다.</p>
+                <div class="btn-group">
+                    <button id="yes-btn" class="btn btn-ans">그렇다</button>
+                    <button id="no-btn" class="btn btn-ans">아니다</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="loading" class="view">
+            <div class="card">
+                <div class="loader"></div>
+                <p class="loading-text">미래 생존 등급을<br>분석 중입니다...</p>
+            </div>
+        </section>
+
+        <section id="result" class="view">
+            <div class="card">
+                <h2 class="result-title">나의 생존 등급</h2>
+                <div id="res-grade" class="result-score">Lv.???</div>
+                <p id="res-desc">결과 설명이 표시됩니다.</p>
+                <button id="retry-btn" class="btn">다시 하기</button>
+            </div>
+        </section>
+    </main>
 </div>
 
 <script src="main.js"></script>

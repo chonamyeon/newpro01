@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIdx = 0;
     let score = 0;
 
+    const views = {
+        main: document.getElementById('main'),
+        quiz: document.getElementById('quiz'),
+        loading: document.getElementById('loading'),
+        result: document.getElementById('result'),
+    };
+
     const startBtn = document.getElementById('start-btn');
     const yesBtn = document.getElementById('yes-btn');
     const noBtn = document.getElementById('no-btn');
@@ -18,11 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', startQuiz);
     yesBtn.addEventListener('click', () => nextQuestion(1));
     noBtn.addEventListener('click', () => nextQuestion(0));
-    retryBtn.addEventListener('click', () => location.reload());
+    retryBtn.addEventListener('click', () => {
+        // Reset state and go to main view
+        currentIdx = 0;
+        score = 0;
+        switchView('main');
+    });
+
+    function switchView(viewName) {
+        Object.values(views).forEach(view => view.classList.remove('active'));
+        views[viewName].classList.add('active');
+    }
 
     function startQuiz() {
-        document.getElementById('main').classList.add('hidden');
-        document.getElementById('quiz').classList.remove('hidden');
+        switchView('quiz');
         showQuestion();
     }
 
@@ -43,33 +59,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showLoading() {
-        document.getElementById('quiz').classList.add('hidden');
-        document.getElementById('loading').classList.remove('hidden');
-        
-        setTimeout(() => {
-            showResult();
-        }, 3000); // 3초 로딩 (광고 노출 시간)
+        switchView('loading');
+        setTimeout(showResult, 3000); // 3-second loading time
     }
 
     function showResult() {
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('result').classList.remove('hidden');
-
         let grade = "";
         let desc = "";
 
         if (score >= 4) {
-            grade = "Lv.1 다이아몬드 실버";
+            grade = "Lv.1 다이아몬드 수저";
             desc = "폐지 대신 골프공을 줍고 계시군요! 아주 훌륭한 자산 감각을 가지셨습니다.";
         } else if (score >= 2) {
             grade = "Lv.2 아슬아슬 개미";
             desc = "열심히는 하지만 물가 상승 속도가 더 빠를 수 있습니다. 조금 더 공격적인 투자가 필요해요!";
         } else {
-            grade = "Lv.3 생존 위기 레벨";
+            grade = "Lv.3 생존 위기";
             desc = "위험합니다! 지금 당장 저축과 투자 습관을 고치지 않으면 진짜 리어카를 끌어야 할지도 몰라요.";
         }
 
         document.getElementById('res-grade').innerText = grade;
         document.getElementById('res-desc').innerText = desc;
+        
+        switchView('result');
     }
+
+    // Initial view setup
+    switchView('main');
 });
