@@ -68,14 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let desc = "";
 
         if (score >= 4) {
-            grade = "Lv.1 다이아몬드 수저";
-            desc = "폐지 대신 골프공을 줍고 계시군요! 아주 훌륭한 자산 감각을 가지셨습니다.";
+            grade = "Lv.5 마스터";
+            desc = "당신은 미래 생존 마스터! 어떤 위기 속에서도 빛나는 통찰력으로 앞서나갑니다.";
         } else if (score >= 2) {
-            grade = "Lv.2 아슬아슬 개미";
-            desc = "열심히는 하지만 물가 상승 속도가 더 빠를 수 있습니다. 조금 더 공격적인 투자가 필요해요!";
+            grade = "Lv.3 일반인";
+            desc = "평범하지만 꾸준함으로 미래를 준비하는 당신! 작은 변화가 큰 차이를 만듭니다.";
         } else {
-            grade = "Lv.3 생존 위기";
-            desc = "위험합니다! 지금 당장 저축과 투자 습관을 고치지 않으면 진짜 리어카를 끌어야 할지도 몰라요.";
+            grade = "Lv.1 위기";
+            desc = "미래 생존 위기 단계! 지금 바로 재정 습관을 점검하고 새로운 지식을 습득해야 합니다.";
         }
 
         document.getElementById('res-grade').innerText = grade;
